@@ -1,0 +1,45 @@
+import random
+
+words = {
+    "Fruits": ["apple", "banana", "mango"],
+    "Animals": ["tiger", "elephant", "zebra"]
+}
+
+category = random.choice(list(words.keys()))
+word = random.choice(words[category])
+
+guessed = []
+lives = 6
+
+print(f"Category: {category}")
+
+while lives > 0:
+    display = ""
+    for letter in word:
+        if letter in guessed:
+            display += letter + " "
+        else:
+            display += "_ "
+
+    print("\nWord:", display)
+    print("Lives:", "|" * lives)
+    print("Guessed:", guessed)
+
+    guess = input("Enter letter: ").lower()
+
+    if guess in guessed:
+        print("Already guessed!")
+        continue
+
+    guessed.append(guess)
+
+    if guess not in word:
+        lives -= 1
+        print("Wrong!")
+
+    if all(letter in guessed for letter in word):
+        print(" You Win! Word was:", word)
+        break
+
+if lives == 0:
+    print(" You Lost! Word was:", word)
